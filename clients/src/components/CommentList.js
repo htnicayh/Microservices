@@ -19,7 +19,19 @@ const CommentList = ({ postId }) => {
     }, [postId])
 
     const renderComments = Object.values(comments).map((comment) => {
-        return <li key={comment.id}>{comment.content}</li>
+        let content
+
+        if (comment.status === 'approve') {
+            content = comment.content
+        } else if (comment.status === 'pending') {
+            content = 'This comment is awaiting for moderation'
+        } else if (comment.status === 'reject') {
+            content = 'This comment has been rejected'
+        } else {
+            content = 'Unknown comment'
+        }
+
+        return <li key={comment.id}>{content}</li>
     })
 
     return <ul>{renderComments}</ul>

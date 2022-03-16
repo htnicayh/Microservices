@@ -11,7 +11,7 @@ const PostList = () => {
 
     const getPosts = async () => {
         const results = await axios.get(`http://localhost:${BASE_URL_STATUS}/posts`)
-
+        console.log(results.data)
         setPosts(results.data)
     }
 

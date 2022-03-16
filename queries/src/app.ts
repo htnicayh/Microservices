@@ -22,7 +22,7 @@ expressApp.get('/posts', (_: Request, res: Response) => {
     res.status(200).json(posts)
 })
 
-expressApp.post('/events', (req: Request, res: Response) => {
+expressApp.post('/events', (req: Request, _: Response) => {
     const { type, data } = req.body
 
     switch(type) {
@@ -33,10 +33,22 @@ expressApp.post('/events', (req: Request, res: Response) => {
             break
         }
         case 'CreateComment': {
-            const { id, content, postId } = data
+            const { id, content, postId, status } = data
             console.log('Posts - ', posts[postId])
             const post = posts[postId]
-            post.comments.push({ id, content })
+            post.comments.push({ id, content, status })
+
+            break
+        }
+        case 'CommentUpdated': {
+            const { id, postId, content, status } = data
+            const post = posts[postId]
+            const comment = post.comment.find((cmt: any) => {
+                return cmt.id === id
+            })
+
+            comment.status = status
+            comment.content = content
 
             break
         }
