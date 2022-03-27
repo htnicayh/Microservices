@@ -51,5 +51,5 @@ expressApp.post('/events', (req: Request, res: Response) => {
 })
 
 expressApp.listen(4000, () => {
-    console.log(`ExpressApp is listening at PORT 4000`)
+    console.log(`PostService is listening at PORT 4000`)
 })

@@ -6,6 +6,7 @@ import express, {
     Response
 } from 'express'
 import morgan from 'morgan'
+import { ICommentPayload } from './interfaces'
 import { corsMiddleware } from './middlewares'
 
 const expressApp: Application = express()
@@ -33,24 +34,49 @@ expressApp.post('/posts/:id/comments', async (req: Request, res: Response) => {
     comments.push({ id: commentId, content })
     commentsByPostId[req.params.id] = [...comments]
 
-    await axios.post('http://localhost:4005/events', {
+    const payload: ICommentPayload = {
         type: 'CreateComment',
         data: {
             id: commentId,
             content,
-            postId: req.params.id
+            postId: req.params.id,
+            status: 'pending'
         }
-    })
+    }
+
+    await axios.post('http://localhost:4005/events', payload)
 
     res.status(201).json(comments)
 })
  
-expressApp.post('/events', (req: Request, res: Response) => {
+expressApp.post('/events', async (req: Request, res: Response) => {
     console.log('Receive Event: ', req.body.type)
+
+    const { type, data } = req.body
+    const { postId, id, status } = data
+
+    if (type === 'CommentModerated') {
+        const comments = commentsByPostId[postId]
+        const comment = comments.find((cmt: any) => {
+            return cmt.id === id
+        })
+        comment.status = status
+
+        const payload = {
+            type: 'CommentUpdated',
+            data: {
+                ...data,
+                status
+            }
+        } as ICommentPayload
+    
+        await axios.post('http://localhost:4005/events', payload)
+    }
+
 
     res.json({})
 })
 
 expressApp.listen(4001, () => {
-    console.log('ExpressApp is listening at PORT 4001')
+    console.log('CommentsService is listening at PORT 4001')
 })
