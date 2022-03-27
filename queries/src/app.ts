@@ -34,18 +34,19 @@ expressApp.post('/events', (req: Request, _: Response) => {
         }
         case 'CreateComment': {
             const { id, content, postId, status } = data
-            console.log('Posts - ', posts[postId])
             const post = posts[postId]
             post.comments.push({ id, content, status })
 
             break
         }
-        case 'CommentUpdated': {
+        case 'CommentModerated': {
             const { id, postId, content, status } = data
             const post = posts[postId]
-            const comment = post.comment.find((cmt: any) => {
+            const comment = post.comments.find((cmt: any) => {
                 return cmt.id === id
             })
+
+            console.log('data', data)
 
             comment.status = status
             comment.content = content
@@ -59,5 +60,5 @@ expressApp.post('/events', (req: Request, _: Response) => {
 })
 
 expressApp.listen(4002, () => {
-    console.log('ExpressApp is listening at port 4002')
+    console.log('QueriesService is listening at port 4002')
 })

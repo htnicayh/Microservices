@@ -24,5 +24,5 @@ expressApp.post('/events', (req: Request, res: Response) => {
 }) 
 
 expressApp.listen(4005, () => {
-    console.log('ExpressApp is listening at port 4005')
+    console.log('EventBus is listening at port 4005')
 })

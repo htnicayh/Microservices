@@ -1,8 +1,7 @@
 /** @format */
 
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
-import { BASE_URL_STATUS } from '../constants/baseUrl'
+import { useRef, useState } from 'react'
 
 const PostCreate = () => {
     const [title, setTitle] = useState('')
@@ -11,7 +10,7 @@ const PostCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        await axios.post(`http://localhost:${BASE_URL_STATUS}/posts`, {
+        await axios.post(`http://localhost:4000/posts`, {
             title
         })
 

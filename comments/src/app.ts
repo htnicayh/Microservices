@@ -78,5 +78,5 @@ expressApp.post('/events', async (req: Request, res: Response) => {
 })
 
 expressApp.listen(4001, () => {
-    console.log('ExpressApp is listening at PORT 4001')
+    console.log('CommentsService is listening at PORT 4001')
 })

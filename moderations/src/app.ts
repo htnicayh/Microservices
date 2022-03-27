@@ -15,8 +15,8 @@ expressApp.use(express.urlencoded({
 expressApp.post('/events', async (request: Request, response: Response) => {
     const { type, data } = request.body
     
-    if (type === 'CommentCreated') {
-        const status = data.content.includes('danger') ? 'reject' : 'approve'
+    if (type === 'CreateComment') {
+        const status = data.content.toLowerCase().includes('danger') ? 'reject' : 'approve'
 
         await axios.post('http://localhost:4005/events', {
             type: 'CommentModerated',
@@ -31,5 +31,5 @@ expressApp.post('/events', async (request: Request, response: Response) => {
 })
 
 expressApp.listen(PORT, () => {
-    console.log(`ExpressApp is listening at PORT ${PORT}`)
+    console.log(`ModerationsService is listening at PORT ${PORT}`)
 })
