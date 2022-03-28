@@ -1,3 +1,4 @@
+import axios from 'axios'
 import cors from 'cors'
 import express, {
     Application,
@@ -5,6 +6,7 @@ import express, {
     Response
 } from 'express'
 import morgan from 'morgan'
+import * as configProperties from '../../config/constant.js'
 
 const expressApp: Application = express()
 
@@ -18,13 +20,7 @@ expressApp.use(cors())
 
 const posts = {}
 
-expressApp.get('/posts', (_: Request, res: Response) => {
-    res.status(200).json(posts)
-})
-
-expressApp.post('/events', (req: Request, _: Response) => {
-    const { type, data } = req.body
-
+const handleEvents = (type: string, data: any) => {
     switch(type) {
         case 'CreateStatus': {
             const { id, title } = data
@@ -39,7 +35,7 @@ expressApp.post('/events', (req: Request, _: Response) => {
 
             break
         }
-        case 'CommentModerated': {
+        case 'CommentUpdated': {
             const { id, postId, content, status } = data
             const post = posts[postId]
             const comment = post.comments.find((cmt: any) => {
@@ -57,8 +53,29 @@ expressApp.post('/events', (req: Request, _: Response) => {
             break
         }
     }
+}
+
+expressApp.get('/posts', (_: Request, res: Response) => {
+    res.status(200).json(posts)
 })
 
-expressApp.listen(4002, () => {
+expressApp.post('/events', (req: Request, res: Response) => {
+    const { type, data } = req.body
+
+    handleEvents(type, data)
+
+    res.json(posts)
+})
+
+expressApp.listen(4002, async () => {
     console.log('QueriesService is listening at port 4002')
+
+    const response = await axios.get(`${configProperties.HTTP.host}:4005/events`)
+
+    for (const event of response.data) {
+        const { type, data } = event
+        console.log(`Processing event: ${event.type}`)
+
+        handleEvents(type, data)
+    }
 })

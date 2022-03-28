@@ -12,8 +12,12 @@ expressApp.use(express.urlencoded({
 
 expressApp.use(cors())
 
+const events = []
+
 expressApp.post('/events', (req: Request, res: Response) => {
     const events = req.body
+
+    events.push(event)
 
     axios.post('http://localhost:4000/events', events)
     axios.post('http://localhost:4001/events', events)
@@ -21,7 +25,11 @@ expressApp.post('/events', (req: Request, res: Response) => {
     axios.post('http://localhost:4003/events', events)
 
     res.json({ status: 'oke' })
-}) 
+})
+
+expressApp.get('/events', (req: Request, res: Response) => {
+    res.json(events)
+})
 
 expressApp.listen(4005, () => {
     console.log('EventBus is listening at port 4005')

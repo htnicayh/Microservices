@@ -1,2 +1,4 @@
 .DS_Stone
 node_modules
+.env
+/config
