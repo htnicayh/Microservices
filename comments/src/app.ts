@@ -8,6 +8,7 @@ import express, {
 import morgan from 'morgan'
 import { ICommentPayload } from './interfaces'
 import { corsMiddleware } from './middlewares'
+import * as configProperties from '../config/constant.js'
 
 const expressApp: Application = express()
 
@@ -21,6 +22,7 @@ expressApp.use(corsMiddleware)
 expressApp.use(morgan('dev'))
 
 const commentsByPostId = {}
+const url = `${configProperties.HTTP.host}:4005/events`
 
 expressApp.get('/posts/:id/comments', (req: Request, res: Response) => {
     res.json(commentsByPostId[req.params.id] || [])
@@ -44,7 +46,7 @@ expressApp.post('/posts/:id/comments', async (req: Request, res: Response) => {
         }
     }
 
-    await axios.post('http://localhost:4005/events', payload)
+    await axios.post(url, payload)
 
     res.status(201).json(comments)
 })
@@ -70,7 +72,7 @@ expressApp.post('/events', async (req: Request, res: Response) => {
             }
         } as ICommentPayload
     
-        await axios.post('http://localhost:4005/events', payload)
+        await axios.post(url, payload)
     }
 
 

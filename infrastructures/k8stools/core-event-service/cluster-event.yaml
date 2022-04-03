@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: events
+spec:
+  containers:
+    - image: 130620/microservices-events
+      name: events
+      ports:
+        - containerPort: 4005
+          protocol: TCP

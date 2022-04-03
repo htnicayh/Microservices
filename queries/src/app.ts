@@ -6,7 +6,7 @@ import express, {
     Response
 } from 'express'
 import morgan from 'morgan'
-import * as configProperties from '../../config/constant.js'
+import * as configProperties from '../config/constant.js'
 
 const expressApp: Application = express()
 

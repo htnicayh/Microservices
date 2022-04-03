@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queries
+spec:
+  containers:
+    - image: 130620/microservices-queries
+      name: queries
+      ports:
+        - containerPort: 4002
+          protocol: TCP

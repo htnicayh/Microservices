@@ -7,6 +7,8 @@ import express, {
 import { corsMiddleware } from './middlewares'
 import morgan from 'morgan'
 import axios from 'axios'
+import * as constantProperties from '../config/constant.js'
+import * as configProperties from '../config/config.js'
 
 const expressApp: Application = express();
 
@@ -31,9 +33,10 @@ expressApp.post('/posts', async (req: Request, res: Response) => {
     posts[id] = {
         id,
         title
-    } 
+    }
+    const url = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
 
-    await axios.post('http://localhost:4005/events', {
+    await axios.post(`${url}/events`, {
         type: 'CreateStatus',
         data: {
             id, 
@@ -51,5 +54,7 @@ expressApp.post('/events', (req: Request, res: Response) => {
 })
 
 expressApp.listen(4000, () => {
+    console.log('ConfigProperties - ', configProperties)
+    console.log('Latest Version')
     console.log(`PostService is listening at PORT 4000`)
 })

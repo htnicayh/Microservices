@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: posts
+spec:
+  containers:
+    - image: 130620/microservices-posts
+      name: posts
+      ports:
+        - containerPort: 4000
+          protocol: TCP

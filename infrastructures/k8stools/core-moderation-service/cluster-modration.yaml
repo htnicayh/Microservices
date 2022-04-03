@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderations
+spec:
+  containers:
+    - image: 130620/microservices-moderations
+      name: moderations
+      ports:
+        - containerPort: 4003
+          protocol: TCP
