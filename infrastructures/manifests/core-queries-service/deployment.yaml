@@ -21,7 +21,7 @@ kind: Service
 metadata:
   name: queries-service
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: queries
   ports:

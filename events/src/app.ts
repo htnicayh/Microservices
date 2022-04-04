@@ -17,13 +17,16 @@ const events = []
 
 expressApp.post('/events', (req: Request, res: Response) => {
     const event = req.body
-    const url = configProperties?.CorePorts?.link || process.env.CORE_POST
+    const urlPost = configProperties?.CorePorts?.link || process.env.CORE_POST
+    const urlComment = configProperties?.CoreComments?.link || process.env.CORE_COMMENT
+    const urlQueries = configProperties?.CoreQueries?.link || process.env.CORE_QUERIES
+    const urlModeration = configProperties?.CoreModeration?.link || process.env.CORE_MODERATION
     events.push(event)
 
-    axios.post(`${url}/events`, event)
-    // axios.post(`${url}:4001/events`, events)
-    // axios.post(`${url}:4002/events`, events)
-    // axios.post(`${url}:4003/events`, events)
+    axios.post(`${urlPost}/events`, event)
+    axios.post(`${urlComment}/events`, event)
+    axios.post(`${urlQueries}/events`, event)
+    axios.post(`${urlModeration}/events`, event)
 
     res.json({ status: 'oke' })
 })

@@ -8,7 +8,7 @@ import express, {
 import morgan from 'morgan'
 import { ICommentPayload } from './interfaces'
 import { corsMiddleware } from './middlewares'
-import * as configProperties from '../config/constant.js'
+import * as configProperties from '../config/config.js'
 
 const expressApp: Application = express()
 
@@ -22,7 +22,8 @@ expressApp.use(corsMiddleware)
 expressApp.use(morgan('dev'))
 
 const commentsByPostId = {}
-const url = `${configProperties.HTTP.host}:4005/events`
+const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+const url = `${host}/events`
 
 expressApp.get('/posts/:id/comments', (req: Request, res: Response) => {
     res.json(commentsByPostId[req.params.id] || [])

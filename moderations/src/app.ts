@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express'
 import axios from 'axios'
 import cors from 'cors'
-import * as configProperties from '../config/constant.js'
+import * as configProperties from '../config/config.js'
 
 const expressApp: Application = express()
 const PORT = process.env.PORT || 4003
@@ -13,19 +13,23 @@ expressApp.use(express.urlencoded({
     limit: '50mb'
 }))
 
+const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+const url = `${host}/events`
+
 expressApp.post('/events', async (request: Request, response: Response) => {
     const { type, data } = request.body
     
     if (type === 'CreateComment') {
         const status = data.content.toLowerCase().includes('danger') ? 'reject' : 'approve'
-
-        await axios.post(`${configProperties.HTTP.host}:4005/events`, {
+        const payload = {
             type: 'CommentModerated',
             data: {
                 ...data,
                 status
             }
-        })
+        }
+
+        await axios.post(url, payload)
     }
 
     response.status(200).json(data)

@@ -6,7 +6,7 @@ import express, {
     Response
 } from 'express'
 import morgan from 'morgan'
-import * as configProperties from '../config/constant.js'
+import * as configProperties from '../config/config.js'
 
 const expressApp: Application = express()
 
@@ -17,6 +17,9 @@ expressApp.use(express.urlencoded({
     limit: '50mb'
 }))
 expressApp.use(cors())
+
+const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+const url = `${host}/events`
 
 const posts = {}
 
@@ -70,7 +73,7 @@ expressApp.post('/events', (req: Request, res: Response) => {
 expressApp.listen(4002, async () => {
     console.log('QueriesService is listening at port 4002')
 
-    const response = await axios.get(`${configProperties.HTTP.host}:4005/events`)
+    const response = await axios.get(url)
 
     for (const event of response.data) {
         const { type, data } = event
