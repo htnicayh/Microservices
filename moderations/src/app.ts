@@ -18,6 +18,7 @@ const url = `${host}/events`
 
 expressApp.post('/events', async (request: Request, response: Response) => {
     const { type, data } = request.body
+    console.log('Receive Event: ', type)
     
     if (type === 'CreateComment') {
         const status = data.content.toLowerCase().includes('danger') ? 'reject' : 'approve'
