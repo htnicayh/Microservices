@@ -1,8 +1,7 @@
 /** @format */
 
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { BASE_URL_STATUS } from '../constants/baseUrl'
+import { useEffect, useState } from 'react'
 import CommentCreate from './CommentCreate'
 import CommentList from './CommentList'
 
@@ -10,8 +9,8 @@ const PostList = () => {
     const [posts, setPosts] = useState({})
 
     const getPosts = async () => {
-        const results = await axios.get(`http://localhost:${BASE_URL_STATUS}/posts`)
-        console.log('Clients Debug - ', results.data)
+        const results = await axios.get(`http://localhost:4000/posts`)
+            
         setPosts(results.data)
     }
 

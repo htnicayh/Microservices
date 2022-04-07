@@ -7,7 +7,7 @@ import express, {
 import { corsMiddleware } from './middlewares'
 import morgan from 'morgan'
 import axios from 'axios'
-import * as constantProperties from '../config/constant.js'
+// import * as constantProperties from '../config/constant.js'
 import * as configProperties from '../config/config.js'
 
 const expressApp: Application = express();

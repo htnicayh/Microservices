@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 import { useRef, useState } from 'react'
+// import { HOST } from '../constants/baseUrl.js'
 
 const PostCreate = () => {
     const [title, setTitle] = useState('')
@@ -16,8 +17,6 @@ const PostCreate = () => {
 
         setTitle('')
         inputRef.current.focus()
-
-        console.log('Focus')
     }
 
     return (
@@ -33,7 +32,6 @@ const PostCreate = () => {
                         ref={inputRef}
                         value={title}
                         onChange={(e) => {
-                            console.log(e.target.value)
                             setTitle(e.target.value)
                         }}
                         className="form-control"

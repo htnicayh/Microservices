@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
-import { BASE_URL_COMMENTS } from '../constants/baseUrl'
+import { BASE_URL_COMMENTS } from '../constants/baseUrl.js'
 
 const CommentCreate = ({ postId }) => {
     const [content, setContent] = useState('')
