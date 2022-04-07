@@ -9,7 +9,7 @@ const PostList = () => {
     const [posts, setPosts] = useState({})
 
     const getPosts = async () => {
-        const results = await axios.get(`http://localhost:4000/posts`)
+        const results = await axios.get(`http://post-micro-services.dev.vn/posts`)
             
         setPosts(results.data)
     }

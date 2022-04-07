@@ -1,8 +1,7 @@
 /** @format */
 
 import axios from 'axios'
-import React, { useRef, useState } from 'react'
-import { BASE_URL_COMMENTS } from '../constants/baseUrl.js'
+import { useRef, useState } from 'react'
 
 const CommentCreate = ({ postId }) => {
     const [content, setContent] = useState('')
@@ -12,7 +11,7 @@ const CommentCreate = ({ postId }) => {
         event.preventDefault()
 
         await axios.post(
-            `http://localhost:${BASE_URL_COMMENTS}/posts/${postId}/comments`,
+            `http://post-micro-services.dev.vn/posts/${postId}/comments`,
             {
                 content
             }
