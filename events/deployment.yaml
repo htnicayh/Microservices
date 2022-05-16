@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: events
+  template:
+    metadata:
+      labels:
+        app: events
+    spec:
+      containers:
+        - name: events
+          image: 130620/microservices-events:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-service-ip
+spec:
+  selector:
+    app: events
+  ports:
+    - name: events
+      protocol: TCP
+      port: 4005 # port of nodePort
+      targetPort: 4005 # targetPort of Pods, request for traffic

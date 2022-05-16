@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comments
+  template:
+    metadata:
+      labels:
+        app: comments
+    spec:
+      containers:
+        - name: comments
+          image: 130620/microservices-comments:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-service-ip
+spec:
+  selector:
+    app: comments
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001 # port of nodePort
+      targetPort: 4001 # targetPort of Pods, request for traffic

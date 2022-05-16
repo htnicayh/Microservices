@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queries
+  template:
+    metadata:
+      labels:
+        app: queries
+    spec:
+      containers:
+        - name: queries
+          image: 130620/microservices-queries:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-service-ip
+spec:
+  selector:
+    app: queries
+  ports:
+    - name: queries
+      protocol: TCP
+      port: 4002 # port of nodePort
+      targetPort: 4002 # targetPort of Pods, request for traffic
+
+
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: deployments
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: deployments
+#   template:
+#     metadata:
+#       labels:
+#         app: deployments
+#     spec:
+#       containers:
+#         - name: deployments
+#           image: 130620/microserviecs-deployments:latest

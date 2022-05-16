@@ -18,7 +18,7 @@ expressApp.use(express.urlencoded({
 }))
 expressApp.use(cors())
 
-const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENT
 const url = `${host}/events`
 
 const posts = {}
@@ -45,11 +45,8 @@ const handleEvents = (type: string, data: any) => {
                 return cmt.id === id
             })
 
-            console.log('data', data)
-
             comment.status = status
             comment.content = content
-
             break
         }
         default: {

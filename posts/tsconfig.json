@@ -8,7 +8,9 @@
         "target": "ES2017",
         "rootDir": "./",
         "outDir": "dist",
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "allowJs": true,
+        "types": ["node"]
     },
     "compileOnSave": true,
     "include": [

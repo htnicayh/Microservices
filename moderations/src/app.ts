@@ -13,7 +13,7 @@ expressApp.use(express.urlencoded({
     limit: '50mb'
 }))
 
-const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENT
 const url = `${host}/events`
 
 expressApp.post('/events', async (request: Request, response: Response) => {

@@ -7,7 +7,6 @@ import express, {
 import { corsMiddleware } from './middlewares'
 import morgan from 'morgan'
 import axios from 'axios'
-// import * as constantProperties from '../config/constant.js'
 import * as configProperties from '../config/config.js'
 
 const expressApp: Application = express();
@@ -55,6 +54,6 @@ expressApp.post('/events', (req: Request, res: Response) => {
 
 expressApp.listen(4000, () => {
     console.log('ConfigProperties - ', configProperties)
-    console.log('Latest Version')
+    console.log('Version Latest')
     console.log(`PostService is listening at PORT 4000`)
 })

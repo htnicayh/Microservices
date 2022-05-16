@@ -17,7 +17,7 @@ const events = []
 
 expressApp.post('/events', (req: Request, res: Response) => {
     const event = req.body
-    const urlPost = configProperties?.CorePorts?.link || process.env.CORE_POST
+    const urlPost = configProperties?.CorePosts?.link || process.env.CORE_POST
     const urlComment = configProperties?.CoreComments?.link || process.env.CORE_COMMENT
     const urlQueries = configProperties?.CoreQueries?.link || process.env.CORE_QUERIES
     const urlModeration = configProperties?.CoreModeration?.link || process.env.CORE_MODERATION

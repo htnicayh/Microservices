@@ -22,7 +22,7 @@ expressApp.use(corsMiddleware)
 expressApp.use(morgan('dev'))
 
 const commentsByPostId = {}
-const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+const host = configProperties?.CoreEvents?.link || process.env.CORE_EVENT
 const url = `${host}/events`
 
 expressApp.get('/posts/:id/comments', (req: Request, res: Response) => {

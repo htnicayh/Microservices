@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts
+  template:
+    metadata:
+      labels:
+        app: posts
+    spec:
+      containers:
+        - name: posts
+          image: 130620/microservices-posts:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service-ip
+spec:
+  selector:
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000 # port of nodePort
+      targetPort: 4000 # targetPort of Pods, request for traffic
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service-node
+spec:
+  type: NodePort
+  selector:
+    app: posts
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
