@@ -11,7 +11,7 @@ const PostCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        await axios.post(`http://post-micro-services.dev.vn/posts/create`, {
+        await axios.post(`http://micro-service.dev.vn/posts/create`, {
             title
         })
 

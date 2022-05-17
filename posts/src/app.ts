@@ -26,14 +26,14 @@ expressApp.get('/posts', (_: Request, res: Response) => {
     res.status(200).json(posts)
 })
 
-expressApp.post('/posts', async (req: Request, res: Response) => {
+expressApp.post('/posts/create', async (req: Request, res: Response) => {
     const id = randomBytes(4).toString('hex')
     const { title } = req.body
     posts[id] = {
         id,
         title
     }
-    const url = configProperties?.CoreEvents?.link || process.env.CORE_EVENTS
+    const url = configProperties?.CoreEvents?.link || process.env.CORE_EVENT
 
     await axios.post(`${url}/events`, {
         type: 'CreateStatus',

@@ -11,7 +11,7 @@ const CommentCreate = ({ postId }) => {
         event.preventDefault()
 
         await axios.post(
-            `http://post-micro-services.dev.vn/posts/${postId}/comments`,
+            `http://micro-service.dev.vn/posts/${postId}/comments`,
             {
                 content
             }
